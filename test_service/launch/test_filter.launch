@@ -1,0 +1,12 @@
+<launch>
+    <node name="turtlesim" pkg="turtlesim" type="turtlesim_node"/>
+    <node name="filter_test" pkg="test_service" type="test_filter"
+        output="screen" args="--text">
+        <param name="topic_in" value="/turtle1/cmd_vel" />
+        <param name="topic_out" value="/turtle1/pose" />
+        <rosparam param="msg_in">
+            {'linear': {'x': 1, 'y': 0, 'z': 0},
+             'angular': {'x': 0, 'y': 0, 'z': 0}}</rosparam>
+        <rosparam param="msg_out">{'x': 5, 'y': 10, 'theta': 12, 'linear_velocity': 3, 'angular_velocity': 5}</rosparam>
+    </node>
+</launch>
