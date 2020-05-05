@@ -24,25 +24,26 @@ CLASSNAME = 'servicetest'
 class ServiceTest(unittest.TestCase):
     def __init__(self, *args):
         super(ServiceTest, self).__init__(*args)
-        rospy.init_node(CLASSNAME)
 
     def setUp(self):
-        self.errors = list()
+        rospy.init_node(CLASSNAME)
 
     def test_service(self):
         try:
-            srv_name = "/add_two_ints"
-            call_input = {'a': 0, 'b': 5.0}
             srv_name = rospy.get_param('~service_name')
             srv_input = rospy.get_param('~service_input')
             srv_output = rospy.get_param('~service_output')
         except KeyError as err:
             msg_err = "service_test not initialized properly"
-            msg_err += " Parameter [%s] not set."%(str(e))
-            msg_err += " Caller ID: [%s] Resolved name: [%s]"%(rospy.get_caller_id(), rospy.resolve_name(e.args[0]))
+            msg_err += " Parameter [%s] not set." % (str(err))
+            msg_err += " Caller ID: [%s] Resolved name: [%s]" % (
+                rospy.get_caller_id(),
+                rospy.resolve_name(err.args[0]))
             self.fail(msg_err)
 
-        print "Testing service {} with input parameters {}".format(srv_name, srv_input)
+        rospy.loginfo("Testing service {} with input parameters {}".format(
+            srv_name,
+            srv_input))
         self._test_service(srv_name, srv_input, srv_output)
 
     def _test_service(self, srv_name, srv_input, srv_output):
@@ -61,31 +62,12 @@ class ServiceTest(unittest.TestCase):
 
         try:
             srv_resp = srv_proxy(**srv_input)
-        except (genpy.SerializationError, rospy.ROSException), err :
+        except (genpy.SerializationError, rospy.ROSException), err:
             msg_err = "Service proxy error: {}".format(err.message)
             self.fail(msg_err)
         srv_dic = message_converter.convert_ros_message_to_dictionary(srv_resp)
 
         self.assertDictEqual(srv_dic, srv_output)
-
-        # # check https://stackoverflow.com/questions/2675028/list-attributes-of-an-object
-        # answer_field = [i for i in dir(srv_resp) if not i.startswith('__') and not i.startswith('_')]
-
-        # basic_field = ['deserialize', 'deserialize_numpy', 'serialize', 'serialize_numpy']
-        # answer_field = [i for i in answer_field if i not in basic_field]
-
-        # rospy.loginfo("Reduced fields: {}".format(answer_field))
-
-        # rospy.loginfo("Checking answer:")
-
-        # for item in answer_field:
-        #     rospy.loginfo("item {} = {}".format(item, getattr(srv_resp, item)))
-
-        # Should have a look at https://github.com/uos/rospy_message_converter
-
-        #return resp1.sum
-
-    # check https://www.tutorialspoint.com/How-to-convert-a-string-to-a-Python-class-object
 
 
 if __name__ == '__main__':
