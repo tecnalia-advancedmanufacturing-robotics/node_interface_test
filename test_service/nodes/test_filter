@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
-@package test_filter
-@file test_service
+@package test_service
+@file test_filter
 @author Anthony Remazeilles
 @brief perform a unittest on a ROS message filter like behavior
 
@@ -26,6 +26,10 @@ class FilterMsgTest(unittest.TestCase):
     def __init__(self, *args):
         super(FilterMsgTest, self).__init__(*args)
 
+        self.filter_msg = None
+        self.filter_stamp = None
+        self.is_received = False
+
     def setUp(self):
         rospy.init_node(CLASSNAME)
 
@@ -36,6 +40,7 @@ class FilterMsgTest(unittest.TestCase):
             topic_out = rospy.get_param('~topic_out')
             msg_in = rospy.get_param('~msg_in')
             msg_out = rospy.get_param('~msg_out')
+            timeout = rospy.get_param('~timeout', None)
         except KeyError as err:
             msg_err = "filter_test not initialized properly \n"
             msg_err += " Parameter [%s] not set. \n" % (str(err))
@@ -45,10 +50,15 @@ class FilterMsgTest(unittest.TestCase):
             self.fail(msg_err)
 
         rospy.loginfo("Testing filtering {}-{}".format(topic_in, topic_out))
+        self._test_filter(topic_in, topic_out, msg_in, msg_out, timeout)
 
-        self._test_filter(topic_in, topic_out, msg_in, msg_out)
+    def _filter_cb(self, msg):
+        self.filter_msg = msg
+        self.filter_stamp = rospy.get_time()
+        rospy.loginfo("Message received!")
+        self.is_received = True
 
-    def _test_filter(self, topic_in, topic_out, msg_in, msg_out):
+    def _test_filter(self, topic_in, topic_out, msg_in, msg_out, timeout):
         self.assert_(topic_in)
         self.assert_(topic_out)
         self.assert_(msg_in)
@@ -91,12 +101,30 @@ class FilterMsgTest(unittest.TestCase):
 
         # subscription
         # make sure no reception done before publication
+        self.is_received = False
         pub = rospy.Publisher(topic_in, ros_msg_in.__class__, queue_size=1)
+        sub = rospy.Subscriber(topic_out, ros_msg_out.__class__, self._filter_cb, queue_size=1)
         rospy.sleep(0.5)
+        self.assert_(not self.is_received, "No message should be recieved before publication!")
+        time_pub = rospy.get_time()
         pub.publish(ros_msg_in)
         # make sure one message gets received in the defined time.
-        # check the receive message
+        is_too_long = False
+        while not self.is_received:
+            if timeout is not None:
+                if rospy.get_time() - time_pub > timeout:
+                    is_too_long = True
+                    break
+            rospy.sleep(0.1)
 
+        self.assert_(not is_too_long, 'filter out not received within indicated duration: [%s]' % timeout)
+
+        rospy.loginfo("A message has been received!")
+        rospy.loginfo("{} at {}".format(self.filter_msg, self.filter_stamp))
+        duration = self.filter_stamp - time_pub
+        rospy.loginfo("Filter duration: {}".format(duration))
+        # check the receive message
+        self.assertEqual(self.filter_msg, ros_msg_out)
 
 if __name__ == '__main__':
 
