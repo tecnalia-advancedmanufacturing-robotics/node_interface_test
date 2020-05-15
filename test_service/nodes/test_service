@@ -36,7 +36,7 @@ class ServiceTest(unittest.TestCase):
         except KeyError as err:
             msg_err = "service_test not initialized properly"
             msg_err += " Parameter [%s] not set." % (str(err))
-            msg_err += " Caller ID: [%s] Resolved name: [%s]".format(
+            msg_err += " Caller ID: [%s] Resolved name: [%s]" % (
                 rospy.get_caller_id(),
                 rospy.resolve_name(err.args[0]))
             self.fail(msg_err)
