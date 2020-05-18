@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-@package test_service
+@package node_test
 @file test_filter
 @author Anthony Remazeilles
 @brief perform a unittest on a ROS message filter like behavior
