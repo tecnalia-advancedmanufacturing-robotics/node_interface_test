@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(test_service)
+project(node_test)
 
 find_package(catkin REQUIRED COMPONENTS
     rospy
@@ -42,6 +42,7 @@ include_directories(
 ## in contrast to setup.py, you can choose the destination
 install(PROGRAMS
    nodes/test_service
+   nodes/test_filter
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

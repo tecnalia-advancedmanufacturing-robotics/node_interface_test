@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
-@package test_filter
-@file test_service
+@package node_test
+@file dummy filter
 @author Anthony Remazeilles
 @brief dummy prb to check filter testing
 

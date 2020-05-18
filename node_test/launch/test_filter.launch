@@ -1,6 +1,6 @@
 <launch>
     <!-- <node name="turtlesim" pkg="turtlesim" type="turtlesim_node"/>
-    <node name="filter_test" pkg="test_service" type="test_filter"
+    <node name="filter_test" pkg="node_test" type="test_filter"
         output="screen" args="text">
         <param name="topic_in" value="/turtle1/cmd_vel" />
         <param name="topic_out" value="/turtle1/pose" />
@@ -10,10 +10,10 @@
         <rosparam param="msg_out">{'x': 5, 'y': 10, 'theta': 12, 'linear_velocity': 3, 'angular_velocity': 5}</rosparam>
     </node> -->
 
-    <node name="dummy_node" pkg="test_service" type="dummy_filter" output="screen">
+    <node name="dummy_node" pkg="node_test" type="dummy_filter" output="screen">
         <param name="wait" value="0.2" />
     </node>
-    <node name="filter_test" pkg="test_service" type="test_filter"
+    <node name="filter_test" pkg="node_test" type="test_filter"
         output="screen" args="--text">
         <param name="topic_in" value="/filter_in" />
         <param name="topic_out" value="/filter_out" />

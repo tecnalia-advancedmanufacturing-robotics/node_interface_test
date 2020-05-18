@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>test_service</name>
+  <name>node_test</name>
   <version>0.0.0</version>
-  <description>ROSTest for services</description>
+  <description>Additiional testing tools at node level</description>
 
   <maintainer email="anthony.remazeilles@tecnalia.com">Anthony Remazeilles</maintainer>
 

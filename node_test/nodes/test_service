@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-@package test_service
+@package node_test
 @file test_service
 @author Anthony Remazeilles
 @brief perform a unittest on a ROS service call
