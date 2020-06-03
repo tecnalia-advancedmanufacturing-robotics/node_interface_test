@@ -41,7 +41,7 @@ roscore
 # in shell 2
 rosrun rospy_tutorials add_two_ints_server
 # in shell 3
-roslaunch test_service launch_test.launch
+roslaunch node_test test_service.launch
 ```
 
 In the [launch file](node_test/launch/test_service.launch) is indicated the test to perform:
