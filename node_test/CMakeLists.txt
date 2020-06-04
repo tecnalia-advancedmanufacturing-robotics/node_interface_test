@@ -38,9 +38,7 @@ include_directories(
 ## Install ##
 #############
 
-## Mark executable scripts (Python etc.) for installation
-## in contrast to setup.py, you can choose the destination
-install(PROGRAMS
+catkin_install_python(PROGRAMS
    nodes/test_service
    nodes/test_filter
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -52,6 +50,6 @@ install(PROGRAMS
 if (CATKIN_ENABLE_TESTING)
   find_package(roslint)
   roslint_python()
-  roslint_add_test()
+  #roslint_add_test()
   #catkin_add_nosetests(tests)
 endif()
