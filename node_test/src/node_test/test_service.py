@@ -32,7 +32,11 @@ class ServiceTest(unittest.TestCase):
         try:
             srv_name = rospy.get_param('~service_name')
             srv_input = rospy.get_param('~service_input')
+            if srv_input == 'None':
+                rospy.logwarn('None input converted to empty input')
+                srv_input = dict()
             srv_output = rospy.get_param('~service_output')
+
         except KeyError as err:
             msg_err = "service_test not initialized properly"
             msg_err += " Parameter [%s] not set." % (str(err))
@@ -61,7 +65,11 @@ class ServiceTest(unittest.TestCase):
             self.fail(msg_err)
 
         try:
-            srv_resp = srv_proxy(**srv_input)
+            if srv_input:
+                srv_resp = srv_proxy(**srv_input)
+            else:
+                srv_resp = srv_proxy()
+
         except (genpy.SerializationError, rospy.ROSException), err:
             msg_err = "Service proxy error: {}".format(err.message)
             self.fail(msg_err)
