@@ -35,7 +35,7 @@ class FilterMsgTest(unittest.TestCase):
 
     def test_filter(self):
         try:
-            #todo could use directly remapping functionality
+            # todo could use directly remapping functionality
             topic_in = rospy.get_param('~topic_in')
             topic_out = rospy.get_param('~topic_out')
             msg_in = rospy.get_param('~msg_in')
