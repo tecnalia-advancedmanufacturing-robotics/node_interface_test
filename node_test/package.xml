@@ -14,5 +14,6 @@
   <depend>rospy</depend>
   <depend>rospy_message_converter</depend>
   <test_depend>roslint</test_depend>
+  <build_depend>rostest</build_depend>
 
 </package>
