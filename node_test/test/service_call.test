@@ -3,7 +3,7 @@
 
     <test test-name="test_service" pkg="node_test" type="test_service" >
         <param name="service_name" value="/trigger_spec" />
-        <rosparam param="service_input"> None</rosparam>
+        <rosparam param="service_input">None</rosparam>
         <rosparam param="service_output">{'success': True, 'message': 'well done!'}</rosparam>
     </test>
 </launch>
