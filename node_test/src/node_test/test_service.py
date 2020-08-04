@@ -30,13 +30,30 @@ class ServiceTest(unittest.TestCase):
 
     def test_service(self):
         try:
-            srv_name = rospy.get_param('~service_name')
-            srv_input = rospy.get_param('~service_input')
-            if srv_input == 'None':
-                rospy.logwarn('None input converted to empty input')
-                srv_input = dict()
-            srv_output = rospy.get_param('~service_output')
+            self.calls = list()
 
+            calls = rospy.get_param('~calls')
+
+            for call in calls:
+
+                keys = ['name', 'input', 'output']
+                for item in keys:
+                    if item not in call:
+                        self.fail("{} field required, but not specified in {}".format(item, call))
+
+                srv_data = dict()
+
+                srv_data['name'] = call['name']
+                srv_data['input'] = call['input']
+                srv_data['output'] = call['output']
+
+                if srv_data['input'] == 'None':
+                    rospy.logwarn('None input converted to empty input')
+                    srv_data['input'] = dict()
+                if srv_data['output'] == 'None':
+                    rospy.logwarn('None output converted to empty output')
+                    srv_data['output'] = dict()
+                self.calls.append(srv_data)
         except KeyError as err:
             msg_err = "service_test not initialized properly"
             msg_err += " Parameter [%s] not set." % (str(err))
@@ -45,10 +62,12 @@ class ServiceTest(unittest.TestCase):
                 rospy.resolve_name(err.args[0]))
             self.fail(msg_err)
 
-        rospy.loginfo("Testing service {} with input parameters {}".format(
-            srv_name,
-            srv_input))
-        self._test_service(srv_name, srv_input, srv_output)
+        for item in self.calls:
+            rospy.loginfo("Testing service {} with input parameters {}".format(
+                item['name'],
+                item['input']))
+            self._test_service(item['name'], item['input'], item['output'])
+            rospy.loginfo("So far so good")
 
     def _test_service(self, srv_name, srv_input, srv_output):
         self.assert_(srv_name)
