@@ -2,7 +2,7 @@
 """
 @package node_test
 @file dummy filter
-@author Anthony Remazeilles
+@author Anthony Remazeilles <anthony.remazeilles@tecnalia.com>
 @brief dummy prb to check filter testing
 
 Copyright (C) 2020 Tecnalia Research and Innovation
@@ -31,7 +31,7 @@ class DummyFilterNode():
         data.data = data.data * 2.0
         print self.wait
         if self.wait is not None:
-            print "Sleepin!"
+            print "Sleeping!"
             duration = rospy.Duration(self.wait)
             rospy.sleep(duration)
         self.pub.publish(data)

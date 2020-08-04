@@ -35,24 +35,19 @@ rosdep install --from-paths src --ignore-src --rosdistro $ROS_DISTRO
 This package contains two scripts, `test_service` and `test_filter`.
 We just highlight the typical usage:
 
-```shell
-# in shell 1
-roscore
-# in shell 2
-rosrun rospy_tutorials add_two_ints_server
-# in shell 3
-roslaunch node_test test_service.launch
-```
+#### test_service
 
-In the [launch file](node_test/launch/test_service.launch) is indicated the test to perform:
+An example is provided in [service_call.test](node_test/test/service_call.test):
 
 ```xml
 <launch>
-    <node name="test_service" pkg="node_test" type="test_service" output="screen" >
-        <param name="service_name" value="/add_two_ints" />
-        <rosparam param="service_input">{'a': 0, 'b': 5.0}</rosparam>
-        <rosparam param="service_output">{'sum': 5}</rosparam>
-    </node>
+  <node pkg="node_test" type="service_server.py" name="service_server"/>
+
+    <test test-name="test_service" pkg="node_test" type="test_service" >
+        <param name="service_name" value="/trigger_spec" />
+        <rosparam param="service_input">None</rosparam>
+        <rosparam param="service_output">{'success': True, 'message': 'well done!'}</rosparam>
+    </test>
 </launch>
 ```
 
@@ -65,27 +60,56 @@ where:
 The test will connect to the service indicated, call it with the provided parameters, and compare the output received with the one defined.
 The test succeeds if all went well.
 
-`test_filter` enables testing a filter-like node, that is supposed to publish a message after having processed a received message.
+Services with no input messages should use term `None` for the input value, as illustrated above.
 
-An example is provided in [test_filter.launch](node_test/launch/test_filter.launch):
+Another example can be generated if `rospy_tutorial` is installed.
+
+If one create the following example `example_srv.test` file:
 
 ```xml
 <launch>
-    <node name="dummy_node" pkg="node_test" type="dummy_filter" output="screen">
+    <test test-name="test_service" pkg="node_test" type="test_service" >
+        <param name="service_name" value="/add_two_ints" />
+        <rosparam param="service_input">{'a': 0, 'b': 5.0}</rosparam>
+        <rosparam param="service_output">{'sum': 5}</rosparam>
+    </node>
+</launch>
+```
+
+```shell
+# in shell 1
+roscore
+# in shell 2
+rosrun rospy_tutorials add_two_ints_server
+# in shell 3 (adjust node_test to the package where the test file is placed)
+rostest node_test example_srv.test
+```
+
+### test_filter
+
+
+`test_filter` enables testing a filter-like node, that is supposed to publish a message after having processed a received message.
+
+An example is provided in [msg_filter.test](node_test/test/msg_filter.test):
+
+```xml
+<launch>
+
+    <node name="dummy_node" pkg="node_test" type="dummy_filter.py">
         <param name="wait" value="0.2" />
     </node>
-    <node name="filter_test" pkg="node_test" type="test_filter"
-        output="screen" args="--text">
+
+    <test test-name="filter_test" pkg="node_test" type="test_filter">
         <param name="topic_in" value="/filter_in" />
         <param name="topic_out" value="/filter_out" />
         <rosparam param="msg_in"> {'data': 2.0}</rosparam>
         <rosparam param="msg_out">{'data': 4.0}</rosparam>
         <rosparam param="timeout">1.0</rosparam>
-    </node>
+    </test>
 </launch>
 ```
 
-`dummy_node` is a simple filter, which double a received value.
+`dummy_node` is a simple filter node, which doubles a received value.
 Parameter `wait` enables emulating the processing time before publishing the result.
 
 The parameters of `test_filter` node are:

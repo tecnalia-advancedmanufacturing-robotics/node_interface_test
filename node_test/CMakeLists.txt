@@ -48,8 +48,10 @@ catkin_install_python(PROGRAMS
 ## Testing ##
 #############
 if (CATKIN_ENABLE_TESTING)
-  find_package(roslint)
+  find_package(roslint REQUIRED)
+  find_package(catkin COMPONENTS rostest)
+
   roslint_python()
-  #roslint_add_test()
-  #catkin_add_nosetests(tests)
+  add_rostest(test/service_call.test)
+  add_rostest(test/msg_filter.test)
 endif()

@@ -1,9 +1,0 @@
-<launch>
-    <node name="add_two_ints_server" type="add_two_ints_server" pkg="rospy_tutorials" output="screen" />
-    <node name="service_test" pkg="node_test" type="test_service" output="screen" >
-        <param name="service_name" value="/add_two_ints" />
-        <param name="service_input" value="50" />
-        <rosparam param="service_input">{'a': 0, 'b': 5.0}</rosparam>
-        <rosparam param="service_output">{'sum': 5}</rosparam>
-    </node>
-</launch>
