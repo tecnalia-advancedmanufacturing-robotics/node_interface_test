@@ -37,7 +37,7 @@ We just highlight the typical usage:
 
 #### test_service
 
-An example is provided in [service_call.test](test/service_call.test):
+An example is provided in [service_call.test](node_test/test/service_call.test):
 
 ```xml
 <launch>
@@ -90,7 +90,7 @@ rostest node_test example_srv.test
 
 `test_filter` enables testing a filter-like node, that is supposed to publish a message after having processed a received message.
 
-An example is provided in [msg_filter.test](node_test/test/msg_filter.launch):
+An example is provided in [msg_filter.test](node_test/test/msg_filter.test):
 
 ```xml
 <launch>
