@@ -3,6 +3,7 @@
 # Copyright (c) 2020, Anthony Remazeilles
 # All rights reserved.
 # Author: Anthony Remazeilles <anthony.remazeilles@tecnalia.com>
+# inspired from https://github.com/ros/ros_comm/blob/noetic-devel/tools/rostest/test_nodes/service_server.py
 
 import rospy
 from std_srvs.srv import Empty, EmptyResponse
