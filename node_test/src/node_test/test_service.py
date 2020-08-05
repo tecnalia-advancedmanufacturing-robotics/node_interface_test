@@ -29,9 +29,9 @@ class ServiceTest(unittest.TestCase):
         rospy.init_node(CLASSNAME)
 
     def test_service(self):
-        try:
-            self.calls = list()
+        self.calls = list()
 
+        try:
             calls = rospy.get_param('~calls')
 
             for call in calls:

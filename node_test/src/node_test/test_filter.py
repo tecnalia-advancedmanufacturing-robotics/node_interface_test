@@ -34,13 +34,27 @@ class FilterMsgTest(unittest.TestCase):
         rospy.init_node(CLASSNAME)
 
     def test_filter(self):
+        self.filters = list()
         try:
-            # todo could use directly remapping functionality
-            topic_in = rospy.get_param('~topic_in')
-            topic_out = rospy.get_param('~topic_out')
-            msg_in = rospy.get_param('~msg_in')
-            msg_out = rospy.get_param('~msg_out')
-            timeout = rospy.get_param('~timeout', None)
+
+            filters = rospy.get_param("~filters")
+
+            for one_filter in filters:
+                keys = ['topic_in', 'topic_out', 'msg_in', 'msg_out', 'timeout']
+
+                for item in keys:
+                    if item not in keys:
+                        self.fail("{} field required, but not specified in {}".format(item, call))
+
+            if one_filter['topic_in'] == 'None':
+                rospy.logwarn('None input converted to empty input')
+                one_filter['topic_in'] = dict()
+            if one_filter['topic_out'] == 'None':
+                rospy.logwarn('None output converted to empty output')
+                one_filter['topic_out'] = dict()
+
+            self.filters = filters
+
         except KeyError as err:
             msg_err = "filter_test not initialized properly \n"
             msg_err += " Parameter [%s] not set. \n" % (str(err))
@@ -49,8 +63,10 @@ class FilterMsgTest(unittest.TestCase):
                 rospy.resolve_name(err.args[0]))
             self.fail(msg_err)
 
-        rospy.loginfo("Testing filtering {}-{}".format(topic_in, topic_out))
-        self._test_filter(topic_in, topic_out, msg_in, msg_out, timeout)
+        for item in self.filters:
+            rospy.loginfo("Testing filtering {}-{}".format(item['topic_in'], item['topic_out']))
+            self._test_filter(item['topic_in'], item['topic_out'], item['msg_in'], item['msg_out'], item['timeout'])
+            rospy.loginfo("So far so good")
 
     def _filter_cb(self, msg):
         self.filter_msg = msg
@@ -105,7 +121,7 @@ class FilterMsgTest(unittest.TestCase):
         pub = rospy.Publisher(topic_in, ros_msg_in.__class__, queue_size=1)
         sub = rospy.Subscriber(topic_out, ros_msg_out.__class__, self._filter_cb, queue_size=1)
         rospy.sleep(0.5)
-        self.assert_(not self.is_received, "No message should be recieved before publication!")
+        self.assert_(not self.is_received, "No message should be received before publication!")
         time_pub = rospy.get_time()
         pub.publish(ros_msg_in)
         # make sure one message gets received in the defined time.
