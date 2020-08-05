@@ -14,7 +14,10 @@ def empty_cb(req):
     return EmptyResponse()
 
 def set_bool_cb(req):
-    return SetBoolResponse()
+    response = SetBoolResponse()
+    response.success = True
+    response.message = str(req.data)
+    return response
 
 def trigger_cb(req):
     return TriggerResponse()

@@ -2,8 +2,20 @@
   <node pkg="node_test" type="service_server.py" name="service_server"/>
 
     <test test-name="test_service" pkg="node_test" type="test_service" >
-        <param name="service_name" value="/trigger_spec" />
-        <rosparam param="service_input">None</rosparam>
-        <rosparam param="service_output">{'success': True, 'message': 'well done!'}</rosparam>
+      <rosparam>
+        calls:
+          - name: /trigger_spec
+            input: None
+            output: {'success': True, 'message': 'well done!'}
+          - name: /trigger
+            input: None
+            output: {'success': False, 'message': ''}
+          - name: /empty
+            input: None
+            output: None
+          - name: /set_bool
+            input: {'data': True}
+            output: {'success': True, 'message': 'True'}
+      </rosparam>
     </test>
 </launch>

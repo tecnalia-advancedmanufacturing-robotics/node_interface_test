@@ -44,18 +44,21 @@ An example is provided in [service_call.test](node_test/test/service_call.test):
   <node pkg="node_test" type="service_server.py" name="service_server"/>
 
     <test test-name="test_service" pkg="node_test" type="test_service" >
-        <param name="service_name" value="/trigger_spec" />
-        <rosparam param="service_input">None</rosparam>
-        <rosparam param="service_output">{'success': True, 'message': 'well done!'}</rosparam>
+        <rosparam>
+          calls:
+            - name: /trigger_spec
+              input: None
+              output: {'success': True, 'message': 'well done!'}
+        </rosparam>
     </test>
 </launch>
 ```
 
 where:
 
-* `service_name`: is the service to test
-* `service_input`: input parameters, defined as a dictionary
-* `service_output`: expected output, defined as a dictionary
+* `name`: is the service to test
+* `input`: input parameters, defined as a dictionary
+* `output`: expected output, defined as a dictionary
 
 The test will connect to the service indicated, call it with the provided parameters, and compare the output received with the one defined.
 The test succeeds if all went well.
@@ -63,16 +66,18 @@ The test succeeds if all went well.
 Services with no input messages should use term `None` for the input value, as illustrated above.
 
 Another example can be generated if `rospy_tutorial` is installed.
-
-If one create the following example `example_srv.test` file:
+If one creates the following example `example_srv.test` file:
 
 ```xml
 <launch>
-    <test test-name="test_service" pkg="node_test" type="test_service" >
-        <param name="service_name" value="/add_two_ints" />
-        <rosparam param="service_input">{'a': 0, 'b': 5.0}</rosparam>
-        <rosparam param="service_output">{'sum': 5}</rosparam>
-    </node>
+  <test test-name="test_service" pkg="node_test" type="test_service" >
+    <rosparam>
+      calls:
+        - name: /add_two_ints
+          input: {'a': 0, 'b': 5.0}
+          output: {'sum': 5}
+    </rosparam>      
+  </test>
 </launch>
 ```
 
@@ -100,11 +105,14 @@ An example is provided in [msg_filter.test](node_test/test/msg_filter.test):
     </node>
 
     <test test-name="filter_test" pkg="node_test" type="test_filter">
-        <param name="topic_in" value="/filter_in" />
-        <param name="topic_out" value="/filter_out" />
-        <rosparam param="msg_in"> {'data': 2.0}</rosparam>
-        <rosparam param="msg_out">{'data': 4.0}</rosparam>
-        <rosparam param="timeout">1.0</rosparam>
+        <rosparam>
+          filters:
+            - topic_in: /filter_in
+              topic_out: /filter_out
+              msg_in: {'data': 2.0}
+              msg_out: {'data': 4.0}
+              timeout: 1.0
+        </rosparam>
     </test>
 </launch>
 ```
