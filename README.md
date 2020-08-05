@@ -66,8 +66,7 @@ The test succeeds if all went well.
 Services with no input messages should use term `None` for the input value, as illustrated above.
 
 Another example can be generated if `rospy_tutorial` is installed.
-
-If one create the following example `example_srv.test` file:
+If one creates the following example `example_srv.test` file:
 
 ```xml
 <launch>
@@ -106,11 +105,14 @@ An example is provided in [msg_filter.test](node_test/test/msg_filter.test):
     </node>
 
     <test test-name="filter_test" pkg="node_test" type="test_filter">
-        <param name="topic_in" value="/filter_in" />
-        <param name="topic_out" value="/filter_out" />
-        <rosparam param="msg_in"> {'data': 2.0}</rosparam>
-        <rosparam param="msg_out">{'data': 4.0}</rosparam>
-        <rosparam param="timeout">1.0</rosparam>
+        <rosparam>
+          filters:
+            - topic_in: /filter_in
+              topic_out: /filter_out
+              msg_in: {'data': 2.0}
+              msg_out: {'data': 4.0}
+              timeout: 1.0
+        </rosparam>
     </test>
 </launch>
 ```
