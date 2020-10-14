@@ -1,6 +1,6 @@
 <launch>
 
-    <node name="dummy_node" pkg="node_test" type="dummy_filter.py">
+    <node name="dummy_node" pkg="node_test" type="dummy_filter.py" output="screen">
         <param name="wait" value="0.2" />
     </node>
     <test test-name="filter_test" pkg="node_test" type="test_filter">

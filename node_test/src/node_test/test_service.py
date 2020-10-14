@@ -124,7 +124,7 @@ class ServiceTest(unittest.TestCase):
             rospy.loginfo("So far so good")
 
     def _test_service(self, srv_name, srv_input, srv_output):
-        self.assert_(srv_name)
+        self.assertTrue(srv_name)
         all_services = rosservice.get_service_list()
         self.assertIn(srv_name, all_services)
         srv_class = rosservice.get_service_class_by_name(srv_name)
@@ -141,7 +141,7 @@ class ServiceTest(unittest.TestCase):
             else:
                 srv_resp = srv_proxy()
 
-        except (genpy.SerializationError, rospy.ROSException), err:
+        except (genpy.SerializationError, rospy.ROSException) as err:
             msg_err = "Service proxy error: {}".format(err.message)
             self.fail(msg_err)
         srv_dic = message_converter.convert_ros_message_to_dictionary(srv_resp)
