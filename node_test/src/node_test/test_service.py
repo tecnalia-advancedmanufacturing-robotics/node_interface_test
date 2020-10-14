@@ -31,7 +31,6 @@ import unittest
 import rospy
 import rosservice
 import rostest
-import genpy
 from rospy_message_converter import message_converter
 
 CLASSNAME = 'servicetest'

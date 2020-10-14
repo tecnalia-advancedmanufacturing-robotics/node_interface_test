@@ -32,9 +32,7 @@ import time
 import unittest
 import rospy
 import rostopic
-import rosmsg
 import rostest
-import genpy
 from rospy_message_converter import message_converter
 
 CLASSNAME = 'filterTest'

@@ -13,7 +13,10 @@
   <buildtool_depend>catkin</buildtool_depend>
   <depend>rospy</depend>
   <depend>rospy_message_converter</depend>
+  <depend>rostopic</depend>
+  <depend>rosservice</depend>
   <test_depend>roslint</test_depend>
-  <build_depend>rostest</build_depend>
+  <test_depend>std_srvs</test_depend>
+  <test_depend>rostest</test_depend>
 
 </package>
