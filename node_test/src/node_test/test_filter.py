@@ -1,64 +1,31 @@
 #!/usr/bin/env python
-# Software License Agreement (Apache 2.0 License)
-#
-# Copyright (c) 2020, Tecnalia.
-# All rights reserved.
-#
-# Redistribution and use in source and binary forms, with or without
-# modification, are permitted provided that the following conditions
-# are met:
-#
-#  * Redistributions of source code must retain the above copyright
-#    notice, this list of conditions and the following disclaimer.
-#  * Redistributions in binary form must reproduce the above
-#    copyright notice, this list of conditions and the following
-#    disclaimer in the documentation and/or other materials provided
-#    with the distribution.
-#  * Neither the name of Tecnalia nor the names of its
-#    contributors may be used to endorse or promote products derived
-#    from this software without specific prior written permission.
-#
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
-# FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
-# COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-# INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
-# BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-# LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-# CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-# LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
-# ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-# POSSIBILITY OF SUCH DAMAGE.
-
 """
-@package node_test
-@file test_filter
-@author Anthony Remazeilles
-@brief perform a unittest on a ROS message filter-like behavior
-
-Copyright (C) 2020 Tecnalia Research and Innovation
-Distributed under the Apache 2.0 license.
+Perform a unittest on a ROS message filter-like behavior.
 
 Verify that a component, when receiving a specific message,
-generates thes expected topic
+generates the expected topic.
 
-Test to be defined as follows:
+Example of test file using this component:
 
-<test test-name="filter_test" pkg="node_test" type="test_filter">
-    <rosparam>
-        filters:
-            - topic_in: topic to which the filter node is subscribed to
-              topic_out: topic to which the filter node will pubish filter output
-              msg_in: message to publish on topic_in, in python dictionary format
-              msg_out: message to be received on topic_out, in python dictionary format
-              timeout: limit time [s] for receiving the filter output 
-    </rosparam>
-</test>
+    <test test-name="filter_test" pkg="node_test" type="test_filter">
+        <rosparam>
+            filters:
+                - topic_in: topic to which the filter node is subscribed to
+                  topic_out: topic to which the filter node will pubish filter output
+                  msg_in: message to publish on topic_in, in python dictionary format
+                  msg_out: message to be received on topic_out, in python dictionary format
+                  timeout: limit time [s] for receiving the filter output
+        </rosparam>
+    </test>
 
 Several filter calls can be added.
 If the input or the output message should be empty, place None.
 """
+
+__author__ = "Anthony Remazeilles"
+__email__ = "anthony.remazeilles@tecnalia.com"
+__copyright__ = "Copyright (C) 2020 Tecnalia Research and Innovation"
+__licence__ = "Apache 2.0"
 
 import sys
 import time
