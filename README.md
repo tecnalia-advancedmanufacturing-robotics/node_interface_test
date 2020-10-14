@@ -4,7 +4,7 @@
 
 The package `node_test` extends `rostest` to add more testing functionalities at node level.
 
-**Author & Maintainer**: Anthony Remazeilles, anthony.remazeilles@tecnalia.com
+**Author & Maintainer**: [Anthony Remazeilles](https://github.com/aremazeilles), anthony.remazeilles@tecnalia.com
 
 **Affiliation** : Tecnalia Research and Innovation, Spain
 
@@ -41,16 +41,17 @@ An example is provided in [service_call.test](node_test/test/service_call.test):
 
 ```xml
 <launch>
+  <!-- Following node is a basic service server -->
   <node pkg="node_test" type="service_server.py" name="service_server"/>
-
-    <test test-name="test_service" pkg="node_test" type="test_service" >
-        <rosparam>
-          calls:
-            - name: /trigger_spec
-              input: None
-              output: {'success': True, 'message': 'well done!'}
-        </rosparam>
-    </test>
+  <!-- configuration of the test-->
+  <test test-name="test_service" pkg="node_test" type="test_service" >
+      <rosparam>
+        calls:
+          - name: /trigger_spec
+            input: None
+            output: {'success': True, 'message': 'well done!'}
+      </rosparam>
+  </test>
 </launch>
 ```
 
@@ -76,7 +77,7 @@ If one creates the following example `example_srv.test` file:
         - name: /add_two_ints
           input: {'a': 0, 'b': 5.0}
           output: {'sum': 5}
-    </rosparam>      
+    </rosparam>
   </test>
 </launch>
 ```
@@ -99,7 +100,8 @@ An example is provided in [msg_filter.test](node_test/test/msg_filter.test):
 
 ```xml
 <launch>
-
+    <!-- Following node is a basic filter node that multiply received value by 2, and publish it. -->
+    <!-- parameter "wait" can  be used to wait a given time before publishing the result. -->
     <node name="dummy_node" pkg="node_test" type="dummy_filter.py">
         <param name="wait" value="0.2" />
     </node>
