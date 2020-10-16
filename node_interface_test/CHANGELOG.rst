@@ -1,8 +1,13 @@
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Changelog for package node_interface_test
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Forthcoming
+-----------
+* change package name
+* Contributors: Anthony Remazeilles
 
 0.0.1 (2020-10-14)
------------
+------------------
 * First version stored
-* Contributors: Anthony Remazeilles, Remazeilles, Anthony
+* Contributors: Anthony Remazeilles
