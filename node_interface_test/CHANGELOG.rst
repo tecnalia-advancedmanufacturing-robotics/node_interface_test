@@ -1,5 +1,5 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Changelog for package node_test
+Changelog for package node_interface_test
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 0.0.1 (2020-10-14)

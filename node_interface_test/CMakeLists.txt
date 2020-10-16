@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(node_test)
+project(node_interface_test)
 
 find_package(catkin REQUIRED COMPONENTS
     rospy

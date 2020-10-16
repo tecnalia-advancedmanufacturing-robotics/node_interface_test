@@ -7,7 +7,7 @@ generates the expected topic.
 
 Example of test file using this component:
 
-    <test test-name="filter_test" pkg="node_test" type="test_filter">
+    <test test-name="filter_test" pkg="node_interface_test" type="test_filter">
         <rosparam>
             filters:
                 - topic_in: topic to which the filter node is subscribed to
