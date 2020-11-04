@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(node_interface_test)
+project(rostest_node_interface_validation)
 
 find_package(catkin REQUIRED COMPONENTS
     rospy

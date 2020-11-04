@@ -1,7 +1,7 @@
 <launch>
-  <node pkg="node_interface_test" type="service_server.py" name="service_server"/>
+  <node pkg="rostest_node_interface_validation" type="service_server.py" name="service_server"/>
 
-    <test test-name="test_service" pkg="node_interface_test" type="test_service" >
+    <test test-name="test_service" pkg="rostest_node_interface_validation" type="test_service" >
       <rosparam>
         calls:
           - name: /trigger_spec
