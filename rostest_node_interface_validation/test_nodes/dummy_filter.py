@@ -32,7 +32,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 """
-@package node_interface_test
+@package rostest_node_interface_validation
 @file dummy filter
 @author Anthony Remazeilles <anthony.remazeilles@tecnalia.com>
 @brief dummy prb to check filter testing

@@ -1,8 +1,8 @@
 [![license - apache 2.0](https://img.shields.io/:license-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-# node_interface_test
+# rostest_node_interface_validation
 
-The package `node_interface_test` extends `rostest` to add more testing functionalities at node level.
+The package `rostest_node_interface_validation` extends `rostest` to add more testing functionalities at node level.
 
 **Author & Maintainer**: [Anthony Remazeilles](https://github.com/aremazeilles), anthony.remazeilles@tecnalia.com
 
@@ -37,14 +37,14 @@ We just highlight the typical usage:
 
 #### test_service
 
-An example is provided in [service_call.test](node_interface_test/test/service_call.test):
+An example is provided in [service_call.test](rostest_node_interface_validation/test/service_call.test):
 
 ```xml
 <launch>
   <!-- Following node is a basic service server -->
-  <node pkg="node_interface_test" type="service_server.py" name="service_server"/>
+  <node pkg="rostest_node_interface_validation" type="service_server.py" name="service_server"/>
   <!-- configuration of the test-->
-  <test test-name="test_service" pkg="node_interface_test" type="test_service" >
+  <test test-name="test_service" pkg="rostest_node_interface_validation" type="test_service" >
       <rosparam>
         calls:
           - name: /trigger_spec
@@ -71,7 +71,7 @@ If one creates the following example `example_srv.test` file:
 
 ```xml
 <launch>
-  <test test-name="test_service" pkg="node_interface_test" type="test_service" >
+  <test test-name="test_service" pkg="rostest_node_interface_validation" type="test_service" >
     <rosparam>
       calls:
         - name: /add_two_ints
@@ -87,8 +87,8 @@ If one creates the following example `example_srv.test` file:
 roscore
 # in shell 2
 rosrun rospy_tutorials add_two_ints_server
-# in shell 3 (adjust node_interface_test to the package where the test file is placed)
-rostest node_interface_test example_srv.test
+# in shell 3 (adjust rostest_node_interface_validation to the package where the test file is placed)
+rostest rostest_node_interface_validation example_srv.test
 ```
 
 ### test_filter
@@ -96,17 +96,17 @@ rostest node_interface_test example_srv.test
 
 `test_filter` enables testing a filter-like node, that is supposed to publish a message after having processed a received message.
 
-An example is provided in [msg_filter.test](node_interface_test/test/msg_filter.test):
+An example is provided in [msg_filter.test](rostest_node_interface_validation/test/msg_filter.test):
 
 ```xml
 <launch>
     <!-- Following node is a basic filter node that multiply received value by 2, and publish it. -->
     <!-- parameter "wait" can  be used to wait a given time before publishing the result. -->
-    <node name="dummy_node" pkg="node_interface_test" type="dummy_filter.py">
+    <node name="dummy_node" pkg="rostest_node_interface_validation" type="dummy_filter.py">
         <param name="wait" value="0.2" />
     </node>
 
-    <test test-name="filter_test" pkg="node_interface_test" type="test_filter">
+    <test test-name="filter_test" pkg="rostest_node_interface_validation" type="test_filter">
         <rosparam>
           filters:
             - topic_in: /filter_in

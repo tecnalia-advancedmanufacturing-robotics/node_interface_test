@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>node_interface_test</name>
+  <name>rostest_node_interface_validation</name>
   <version>0.1.0</version>
   <description>Additiional testing tools at node level</description>
 

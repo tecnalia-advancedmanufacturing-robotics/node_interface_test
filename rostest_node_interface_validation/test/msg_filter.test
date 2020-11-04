@@ -1,9 +1,9 @@
 <launch>
 
-    <node name="dummy_node" pkg="node_interface_test" type="dummy_filter.py">
+    <node name="dummy_node" pkg="rostest_node_interface_validation" type="dummy_filter.py">
         <param name="wait" value="0.2" />
     </node>
-    <test test-name="filter_test" pkg="node_interface_test" type="test_filter">
+    <test test-name="filter_test" pkg="rostest_node_interface_validation" type="test_filter">
         <rosparam>
             filters:
                 - topic_in: /filter_in

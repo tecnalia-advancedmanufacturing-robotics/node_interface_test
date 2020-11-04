@@ -32,7 +32,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 
-from node_interface_test.test_service import main
+from rostest_node_interface_validation.test_service import main
 import sys
 
 if __name__ == '__main__':

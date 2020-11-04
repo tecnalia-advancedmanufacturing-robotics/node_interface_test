@@ -6,7 +6,7 @@ Verify that, given a service request, the answer provided is the one expected.
 
 Test files should set the following parameters:
 
-<test test-name="test_service" pkg="node_interface_test" type="test_service" >
+<test test-name="test_service" pkg="rostest_node_interface_validation" type="test_service" >
     <rosparam>
         calls:
             - name: service name
